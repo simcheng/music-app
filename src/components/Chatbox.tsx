@@ -34,14 +34,17 @@ const Chatbox: React.FC = () => {
     const messages: Message[] = [];
 
     try {
-      const response = await axios.get<MessageResponse>("/api/messages", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        params: {
-          date,
-        },
-      });
+      const response = await axios.get<MessageResponse>(
+        "https://music-ge72tq8ny-simons-projects-6cd85a72.vercel.app/api/messages",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          params: {
+            date,
+          },
+        }
+      );
 
       // const jsonResponse = await ; // parse the JSON response
       // Map the messages array to the Messages[] format
@@ -85,13 +88,16 @@ const Chatbox: React.FC = () => {
   async function handleSendMessage(user: string, content: string) {
     if (currentMessage.trim() !== "" && currentName.trim() !== "") {
       try {
-        const response = await fetch("/api/messages", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ user, content }),
-        });
+        const response = await fetch(
+          "https://music-ge72tq8ny-simons-projects-6cd85a72.vercel.app//api/messages",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user, content }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to post message");
