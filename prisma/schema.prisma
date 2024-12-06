@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model DailySong {
+  id    Int      @id @default(autoincrement())
+  date  DateTime @unique
+  songs Song[]
+}
+
+model Song {
+  id          Int       @id @default(autoincrement())
+  title       String
+  artist      String
+  imageUrl    String
+  appleMusic  String
+  dailySongId Int
+  dailySong   DailySong @relation(fields: [dailySongId], references: [id])
+}
+
+model DailyChat {
+  id       Int       @id @default(autoincrement())
+  date     DateTime  @unique
+  messages Message[]  
+}
+
+model Message {
+  id          Int       @id @default(autoincrement())
+  user        String
+  content     String
+  timestamp   DateTime  @default(now())
+  dailyChatId Int
+  dailyChat   DailyChat @relation(fields: [dailyChatId], references: [id])
+}
