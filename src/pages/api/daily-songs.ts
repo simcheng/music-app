@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     for (let i = 0; i < 3; i++) {
       let num = Math.round(Math.random() * 1862727 - 1) + 1;
-      const response = await fetch(`http://localhost:3000/api/genius?query=${num}`);
+      const response = await fetch(`/api/genius?query=${num}`); // replace with axios
       let res: GetSongResponse = await response.json();
       let song: SongCardProps = {
         title: res.response.song.title,

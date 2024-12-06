@@ -34,17 +34,14 @@ const Chatbox: React.FC = () => {
     const messages: Message[] = [];
 
     try {
-      const response = await axios.get<MessageResponse>(
-        "http://localhost:3000/api/messages",
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          params: {
-            date,
-          },
-        }
-      );
+      const response = await axios.get<MessageResponse>("/api/messages", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        params: {
+          date,
+        },
+      });
 
       // const jsonResponse = await ; // parse the JSON response
       // Map the messages array to the Messages[] format
