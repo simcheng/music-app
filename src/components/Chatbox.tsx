@@ -35,7 +35,7 @@ const Chatbox: React.FC = () => {
 
     try {
       const response = await axios.get<MessageResponse>(
-        "https://music-ge72tq8ny-simons-projects-6cd85a72.vercel.app/api/messages",
+        "https://music-app-three-theta.vercel.app/api/messages",
         {
           headers: {
             "Content-Type": "application/json",

@@ -35,6 +35,7 @@ export default function Home() {
       const response = await axios.get<SongCardPropsResponse>(
         "https://music-app-three-theta.vercel.app/api/daily-songs"
       );
+      console.log("Fetched songs:", response.data.songs);
       if (!response.data.songs) {
         return [];
       }

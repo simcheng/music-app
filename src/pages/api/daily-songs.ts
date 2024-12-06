@@ -48,6 +48,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             songs: true, // Include the songs in the response
           },
         });
+        
+        console.log("API Response:", existingDailySong);
 
         // If there are existing daily songs, return them
         if (existingDailySong) {
