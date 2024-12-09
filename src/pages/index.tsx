@@ -33,7 +33,7 @@ export default function Home() {
 
     try {
       const response = await axios.get<SongCardPropsResponse>(
-        "music-app-simon.vercel.app/api/daily-songs"
+        "https://music-app-simon.vercel.app/api/daily-songs"
       );
       console.log("Fetched songs:", response.data.songs);
       if (!response.data.songs) {
