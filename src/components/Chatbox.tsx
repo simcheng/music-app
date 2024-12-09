@@ -141,13 +141,18 @@ const Chatbox: React.FC = () => {
           placeholder="Name"
           value={currentName}
           onChange={(e) => setCurrentName(e.target.value)}
-          sx={{ flex: 1 }}
+          sx={{ flex: 1, maxWidth: "70%" }}
         />
         <Button
           variant="contained"
           color="primary"
           onClick={handleClick}
-          sx={{ whiteSpace: "nowrap" }}
+          sx={{
+            height: "56px",
+            fontSize: "1rem",
+            padding: "0 24px",
+            textTransform: "none",
+          }}
         >
           Send
         </Button>
