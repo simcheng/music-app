@@ -120,46 +120,82 @@ const Chatbox: React.FC = () => {
       sx={{
         border: "1px solid #ccc",
         borderRadius: "8px",
-        width: "800px",
-        padding: "16px",
+        width: "100%",
+        maxWidth: "800px",
+        padding: "24px",
         display: "flex",
         flexDirection: "column",
+        gap: "16px",
+        backgroundColor: "#f9f9f9",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
       }}
     >
       <Typography variant="h6" gutterBottom>
         Leave your thoughts here:
       </Typography>
 
-      <Box sx={{ display: "flex", width: "300px", gap: "8px", mt: 1 }}>
+      <Box sx={{ display: "flex", gap: "8px", alignItems: "center" }}>
         <TextField
           fullWidth
           variant="outlined"
           placeholder="Name"
           value={currentName}
           onChange={(e) => setCurrentName(e.target.value)}
+          sx={{ flex: 1 }}
         />
-        <Button variant="contained" color="primary" onClick={handleClick}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleClick}
+          sx={{ whiteSpace: "nowrap" }}
+        >
           Send
         </Button>
       </Box>
-      <Box sx={{ display: "flex", gap: "8px", mt: 1 }}>
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder="Message"
-          value={currentMessage}
-          onChange={(e) => setCurrentMessage(e.target.value)}
-        />
-      </Box>
-      <List sx={{ mt: 1, flexGrow: 1, overflowY: "auto", maxHeight: "200px" }}>
+
+      <TextField
+        fullWidth
+        variant="outlined"
+        placeholder="Message"
+        value={currentMessage}
+        onChange={(e) => setCurrentMessage(e.target.value)}
+        multiline
+        rows={4}
+        sx={{ marginTop: "8px" }}
+      />
+
+      <List
+        sx={{
+          marginTop: "16px",
+          flexGrow: 1,
+          overflowY: "auto",
+          maxHeight: "250px",
+          backgroundColor: "#fff",
+          borderRadius: "8px",
+          padding: "8px",
+          boxShadow: "inset 0px 2px 4px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         {messages
           .slice(0)
           .reverse()
           .map((msg, index) => (
-            <ListItem key={index} sx={{ wordWrap: "break-word", my: "2" }}>
-              <Stack>
-                <Typography variant="h6">{msg.user}</Typography>
-                <Typography>{msg.content}</Typography>
+            <ListItem
+              key={index}
+              sx={{
+                wordWrap: "break-word",
+                padding: "8px 16px",
+                borderBottom: "1px solid #eee",
+                ":last-child": { borderBottom: "none" },
+              }}
+            >
+              <Stack spacing={1}>
+                <Typography variant="subtitle1" fontWeight="bold">
+                  {msg.user}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {msg.content}
+                </Typography>
               </Stack>
             </ListItem>
           ))}
