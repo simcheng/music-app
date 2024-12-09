@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../../lib/prisma';
 import { SongCardProps } from "@/components/SongCard";
+import axios from 'axios';
 
+import { BASE_URL } from '..';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
@@ -22,13 +24,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     for (let i = 0; i < 3; i++) {
       let num = Math.round(Math.random() * 1862727 - 1) + 1;
-      const response = await fetch(`https://music-app-simon.vercel.app/api/genius?query=${num}`); // replace with axios
-      let res: GetSongResponse = await response.json();
+      const res = await axios.get<GetSongResponse>(`${BASE_URL}/api/genius?query=${num}`); // replace with axios
       let song: SongCardProps = {
-        title: res.response.song.title,
-        artist: res.response.song.artist_names,
-        imageSrc: res.response.song.song_art_image_url,
-        url: res.response.song.apple_music_player_url,
+        title: res.data.response.song.title,
+        artist: res.data.response.song.artist_names,
+        imageSrc: res.data.response.song.song_art_image_url,
+        url: res.data.response.song.apple_music_player_url,
       };
       songList.push(song);
     }

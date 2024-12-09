@@ -6,6 +6,10 @@ import NavBar from "@/components/NavBar";
 import { SongCardProps, SongCard } from "@/components/SongCard";
 import Chatbox from "@/components/Chatbox";
 
+// site name
+
+export const BASE_URL = "https://music-app-simon.vercel.app";
+
 // type definitions for backend response
 
 type Song = {
@@ -33,7 +37,7 @@ export default function Home() {
 
     try {
       const response = await axios.get<SongCardPropsResponse>(
-        "https://music-app-simon.vercel.app/api/daily-songs"
+        `${BASE_URL}/api/daily-songs`
       );
       console.log("Fetched songs:", response.data.songs);
       if (!response.data.songs) {

@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ error: 'Query parameter is required' });
   }
 
-  try {
+  try { // leaving this as fetch bc i don't want to deal with typing all the genius json res
     const response = await fetch(`${GENIUS_API_URL}${query}`, {
       headers: {
         Authorization: `Bearer ${GENIUS_ACCESS_TOKEN}`,

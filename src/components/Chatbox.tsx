@@ -9,6 +9,7 @@ import {
   Stack,
 } from "@mui/material";
 import axios from "axios";
+import { BASE_URL } from "@/pages";
 
 // type definitions for backend response
 
@@ -35,7 +36,7 @@ const Chatbox: React.FC = () => {
 
     try {
       const response = await axios.get<MessageResponse>(
-        "https://music-app-simon.vercel.app/api/messages",
+        `${BASE_URL}/api/messages`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -88,25 +89,22 @@ const Chatbox: React.FC = () => {
   async function handleSendMessage(user: string, content: string) {
     if (currentMessage.trim() !== "" && currentName.trim() !== "") {
       try {
-        const response = await fetch(
-          "https://music-app-simon.vercel.app/api/messages",
+        const response = await axios.post(
+          `${BASE_URL}/api/messages`,
           {
-            method: "POST",
+            user,
+            content,
+          },
+          {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ user, content }),
           }
         );
 
-        if (!response.ok) {
-          throw new Error("Failed to post message");
-        }
-
-        const data = await response.json();
-        console.log("Message posted:", data);
+        console.log("Message posted:", response.data);
       } catch (error) {
-        console.error(error);
+        console.error("Failed to post message:", error);
       }
 
       setCurrentName("");
@@ -141,7 +139,7 @@ const Chatbox: React.FC = () => {
           placeholder="Name"
           value={currentName}
           onChange={(e) => setCurrentName(e.target.value)}
-          sx={{ flex: 1, maxWidth: "70%" }}
+          sx={{ flex: 1, maxWidth: "100%", marginLeft: "4px" }}
         />
         <Button
           variant="contained"
