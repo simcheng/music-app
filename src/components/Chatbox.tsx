@@ -89,7 +89,7 @@ const Chatbox: React.FC = () => {
     if (currentMessage.trim() !== "" && currentName.trim() !== "") {
       try {
         const response = await fetch(
-          "https://music-app-three-theta.vercel.app/api/messages",
+          "https://https://music-app-simon.vercel.app/api/messages",
           {
             method: "POST",
             headers: {
