@@ -35,7 +35,7 @@ const Chatbox: React.FC = () => {
 
     try {
       const response = await axios.get<MessageResponse>(
-        "https://music-app-three-theta.vercel.app/api/messages",
+        "https://music-app-simon.vercel.app/api/messages",
         {
           headers: {
             "Content-Type": "application/json",
@@ -151,7 +151,7 @@ const Chatbox: React.FC = () => {
           onChange={(e) => setCurrentMessage(e.target.value)}
         />
       </Box>
-      <List sx={{ flexGrow: 1, overflowY: "auto", maxHeight: "200px" }}>
+      <List sx={{ mt: 1, flexGrow: 1, overflowY: "auto", maxHeight: "200px" }}>
         {messages
           .slice(0)
           .reverse()

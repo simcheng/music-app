@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     for (let i = 0; i < 3; i++) {
       let num = Math.round(Math.random() * 1862727 - 1) + 1;
-      const response = await fetch(`https://music-app-three-theta.vercel.app/api/genius?query=${num}`); // replace with axios
+      const response = await fetch(`https://music-app-simon.vercel.app/api/genius?query=${num}`); // replace with axios
       let res: GetSongResponse = await response.json();
       let song: SongCardProps = {
         title: res.response.song.title,
