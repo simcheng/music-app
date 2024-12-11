@@ -11,10 +11,10 @@ export const DatePicker: React.FC<dateProps> = ({
   setSelectedDate,
 }) => {
   const incrementDate = () => {
-    setSelectedDate(new Date(selectedDate.getDate() + 1));
+    setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
   };
   const decrementDate = () => {
-    setSelectedDate(new Date(selectedDate.getDate() - 1));
+    setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
   };
 
   let printDate = selectedDate.toISOString();

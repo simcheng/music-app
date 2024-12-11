@@ -27,7 +27,9 @@ type SongCardPropsResponse = {
 };
 
 export default function Home() {
-  let [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  let [selectedDate, setSelectedDate] = useState<Date>(
+    new Date(new Date().toISOString().split("T")[0])
+  );
   const [songs, setSongs] = useState<SongCardProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
