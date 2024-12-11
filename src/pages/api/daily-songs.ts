@@ -1,13 +1,17 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../lib/prisma';
+import { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "../../lib/prisma";
 import { SongCardProps } from "@/components/SongCard";
-import axios from 'axios';
+import axios from "axios";
 
-import { BASE_URL } from '..';
+import { BASE_URL } from "..";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { method } = req;
-  
+  let queryDate: Date = new Date();
+
   type GetSongResponse = { response: GetSongResponseResponse };
   type GetSongResponseResponse = { song: GetSongResponseSong };
   type GetSongResponseSong = {
@@ -24,7 +28,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     for (let i = 0; i < 3; i++) {
       let num = Math.round(Math.random() * 1862727 - 1) + 1;
-      const res = await axios.get<GetSongResponse>(`${BASE_URL}/api/genius?query=${num}`); // replace with axios
+      const res = await axios.get<GetSongResponse>(
+        `${BASE_URL}/api/genius?query=${num}`
+      ); // replace with axios
       let song: SongCardProps = {
         title: res.data.response.song.title,
         artist: res.data.response.song.artist_names,
@@ -38,18 +44,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   switch (method) {
-    case 'GET': {
+    case "GET": {
       try {
+        // check existing selected date passed in query for validity
+        queryDate = new Date(req.query.q as string);
+
+        if (!queryDate || Array.isArray(queryDate)) {
+          return res
+            .status(400)
+            .json({ error: "Invalid or missing date parameter" });
+        }
+
+        const date = queryDate.toISOString().split("T")[0]; // Format: YYYY-MM-DD
+
         // Check if there are any daily songs already set
-        const existingDailySong = await prisma.dailySong.findFirst({
-          orderBy: {
-            date: 'desc', // Optionally you could fetch the latest daily song
+        const existingDailySong = await prisma.dailySong.findUnique({
+          where: {
+            date: date,
           },
           include: {
             songs: true, // Include the songs in the response
           },
         });
-        
+
         console.log("API Response:", existingDailySong);
 
         // If there are existing daily songs, return them
@@ -57,18 +74,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           return res.status(200).json(existingDailySong);
         }
 
-        // If no daily songs exist, call geniusRequest to generate songs
+        // if there are no daily songs, call geniusRequest to generate songs
         const songList = await geniusRequest();
-
-        // Create a new daily song entry with the fetched songs
-        const date = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
 
         // Create new daily songs
         const newDailySong = await prisma.dailySong.create({
           data: {
-            date: new Date(date),
+            date: date,
             songs: {
-              create: songList.map(song => ({
+              create: songList.map((song) => ({
                 title: song.title,
                 artist: song.artist,
                 imageUrl: song.imageSrc,
@@ -83,13 +97,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         return res.status(200).json(newDailySong);
       } catch (error) {
-        console.error('Error fetching or creating daily songs:', error);
-        return res.status(500).json({ error: 'Failed to fetch or create daily songs.' });
+        console.error("Error fetching or creating daily songs:", error);
+        return res
+          .status(500)
+          .json({ error: "Failed to fetch or create daily songs." });
       }
     }
 
     default:
-      res.setHeader('Allow', ['GET']);
+      res.setHeader("Allow", ["GET"]);
       return res.status(405).end(`Method ${method} Not Allowed`);
   }
 }

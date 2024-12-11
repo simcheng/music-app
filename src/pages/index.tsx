@@ -5,6 +5,7 @@ import axios from "axios";
 import NavBar from "@/components/NavBar";
 import { SongCardProps, SongCard } from "@/components/SongCard";
 import Chatbox from "@/components/Chatbox";
+import { DatePicker } from "@/components/DatePicker";
 
 // site name
 
@@ -26,6 +27,7 @@ type SongCardPropsResponse = {
 };
 
 export default function Home() {
+  let [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [songs, setSongs] = useState<SongCardProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -37,7 +39,8 @@ export default function Home() {
 
     try {
       const response = await axios.get<SongCardPropsResponse>(
-        `${BASE_URL}/api/daily-songs`
+        `${BASE_URL}/api/daily-songs`,
+        { params: { selectedDate } }
       );
       console.log("Fetched songs:", response.data.songs);
       if (!response.data.songs) {
@@ -81,6 +84,10 @@ export default function Home() {
       <Box sx={{ pb: "50px" }}>
         <NavBar></NavBar>
       </Box>
+      <DatePicker
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      ></DatePicker>
       <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
         {songs?.map((song, index) => {
           return (
@@ -94,7 +101,10 @@ export default function Home() {
         })}
       </Box>
       <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-        <Chatbox />
+        <Chatbox
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+        ></Chatbox>
       </Box>
     </>
   );

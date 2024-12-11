@@ -1,5 +1,12 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
+import React, { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+  IconButton,
+} from "@mui/material";
 
 const Navbar: React.FC = () => {
   return (
@@ -8,11 +15,6 @@ const Navbar: React.FC = () => {
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Music Recommender
         </Typography>
-        {/* <Box>
-          <Button color="inherit">Home</Button>
-          <Button color="inherit">About</Button>
-          <Button color="inherit">Contact</Button>
-        </Box> */}
       </Toolbar>
     </AppBar>
   );

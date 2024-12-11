@@ -13,6 +13,11 @@ import { BASE_URL } from "@/pages";
 
 // type definitions for backend response
 
+interface dateProps {
+  selectedDate: Date;
+  setSelectedDate: (selectedDate: Date) => void;
+}
+
 export type Message = {
   id: number;
   user: string;
@@ -26,12 +31,12 @@ type MessageResponse = {
   messages: Message[];
 };
 
-const Chatbox: React.FC = () => {
+const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentMessage, setCurrentMessage] = useState<string>("");
   const [currentName, setCurrentName] = useState<string>("");
 
-  const parse = async (date: Date): Promise<Message[]> => {
+  const parse = async (): Promise<Message[]> => {
     const messages: Message[] = [];
 
     try {
@@ -41,9 +46,7 @@ const Chatbox: React.FC = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          params: {
-            date,
-          },
+          params: { selectedDate },
         }
       );
 
@@ -53,6 +56,7 @@ const Chatbox: React.FC = () => {
         return [];
       }
       response.data.messages.forEach((messagesData: any) => {
+        // ew this leaves the messagesData as any
         const message: Message = {
           id: messagesData.id,
           user: messagesData.user,
@@ -71,8 +75,7 @@ const Chatbox: React.FC = () => {
   };
 
   const fetchMessages = async () => {
-    const date = new Date();
-    const fetchedMessages = await parse(date);
+    const fetchedMessages = await parse();
     console.log(fetchedMessages);
     setMessages(fetchedMessages);
   };
@@ -164,6 +167,12 @@ const Chatbox: React.FC = () => {
         onChange={(e) => setCurrentMessage(e.target.value)}
         multiline
         rows={4}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleClick();
+          }
+        }}
         sx={{ marginTop: "8px" }}
       />
 
