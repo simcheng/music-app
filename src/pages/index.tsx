@@ -9,10 +9,7 @@ import { DatePicker } from "@/components/DatePicker";
 
 // site name
 
-export const BASE_URL =
-  process.env.NODE_ENV === "production"
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-    : "http://localhost:3000";
+export const BASE_URL = `https://music-app-simon.vercel.app`;
 
 // type definitions for backend response
 
@@ -43,9 +40,10 @@ export default function Home() {
     const songList: SongCardProps[] = []; // define songcard array to fill
 
     try {
+      const dateString = selectedDate.toISOString().split("T")[0];
       const response = await axios.get<SongCardPropsResponse>(
         `${BASE_URL}/api/daily-songs`,
-        { params: { selectedDate } }
+        { params: { dateString } }
       );
       console.log("Fetched songs:", response.data.songs);
       if (!response.data.songs) {
