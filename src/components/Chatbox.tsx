@@ -85,11 +85,11 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
   }, []);
 
   const handleClick = () => {
-    handleSendMessage(currentName, currentMessage);
+    handleSendMessage(currentName, currentMessage, selectedDate);
     // .then(() => fetchMessages())
   };
 
-  async function handleSendMessage(user: string, content: string) {
+  async function handleSendMessage(user: string, content: string, date: Date) {
     if (currentMessage.trim() !== "" && currentName.trim() !== "") {
       try {
         const response = await axios.post(
@@ -97,6 +97,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
           {
             user,
             content,
+            date,
           },
           {
             headers: {

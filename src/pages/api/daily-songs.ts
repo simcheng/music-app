@@ -55,7 +55,9 @@ export default async function handler(
             .json({ error: "Invalid or missing date parameter" });
         }
 
-        const date = queryDate.toISOString().split("T")[0]; // Format: YYYY-MM-DD
+        const date = new Date(queryDate.toISOString().split("T")[0]); // Format: YYYY-MM-DD
+
+        console.log("Requested Date:", date.toISOString());
 
         // Check if there are any daily songs already set
         const existingDailySong = await prisma.dailySong.findUnique({
