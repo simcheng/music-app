@@ -55,7 +55,7 @@ export default async function handler(
             .json({ error: "Invalid or missing date parameter" });
         }
 
-        const date = new Date(queryDate.toISOString().split("T")[0]); // Format: YYYY-MM-DD
+        const date = new Date(queryDate); // Format: YYYY-MM-DD
 
         console.log("Requested Date:", date.toISOString());
 
