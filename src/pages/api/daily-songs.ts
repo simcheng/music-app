@@ -30,7 +30,7 @@ export default async function handler(
       let num = Math.round(Math.random() * 1862727 - 1) + 1;
       const res = await axios.get<GetSongResponse>(
         `${BASE_URL}/api/genius?query=${num}`
-      ); // replace with axios
+      );
       let song: SongCardProps = {
         title: res.data.response.song.title,
         artist: res.data.response.song.artist_names,
@@ -46,13 +46,17 @@ export default async function handler(
   switch (method) {
     case "GET": {
       try {
-        // check existing selected date passed in query for validity
+        // check selected date passed in query for validity
         queryDate = new Date(req.query.q as string);
 
         if (!queryDate || Array.isArray(queryDate)) {
           return res
             .status(400)
             .json({ error: "Invalid or missing date parameter" });
+        }
+
+        if (queryDate) {
+          return res.status(200).json({ thing: { queryDate } });
         }
 
         const date = new Date(queryDate.toISOString().split("T")[0]); // Format: YYYY-MM-DD

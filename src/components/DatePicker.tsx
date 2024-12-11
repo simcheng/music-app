@@ -21,13 +21,19 @@ export const DatePicker: React.FC<dateProps> = ({
 
   return (
     <Box
-      sx={{ display: "flex", padding: "5px", gap: "8px", alignItems: "center" }}
+      sx={{
+        display: "flex",
+        padding: "5px",
+        gap: "8px",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
-      <IconButton onClick={decrementDate}>back ⬅️ </IconButton>
+      <IconButton onClick={decrementDate}>⬅️ </IconButton>
       <Typography variant="subtitle1" fontWeight="bold">
         {printDate}
       </Typography>
-      <IconButton onClick={incrementDate}>➡️ forward</IconButton>
+      <IconButton onClick={incrementDate}>➡️</IconButton>
     </Box>
   );
 };

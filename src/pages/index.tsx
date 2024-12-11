@@ -9,7 +9,10 @@ import { DatePicker } from "@/components/DatePicker";
 
 // site name
 
-export const BASE_URL = "https://music-app-simon.vercel.app";
+export const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    : "http://localhost:3000";
 
 // type definitions for backend response
 

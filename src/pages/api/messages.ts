@@ -33,16 +33,16 @@ export default async function handler(
           },
         });
 
-        // If there are existing daily songs, return them
+        // If there are existing messages, return them
         if (existingMessages) {
           return res.status(200).json(existingMessages);
         }
         return res.status(200).json({});
       } catch (error) {
-        console.error("Error fetching or creating daily songs:", error);
+        console.error("Error fetching or creating messages:", error);
         return res
           .status(500)
-          .json({ error: "Failed to fetch or create daily songs." });
+          .json({ error: "Failed to fetch or create messages." });
       }
     }
 
