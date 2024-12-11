@@ -78,7 +78,7 @@ export default async function handler(
         // Create new daily songs
         const newDailySong = await prisma.dailySong.create({
           data: {
-            date: date,
+            date: queryDate,
             songs: {
               create: songList.map((song) => ({
                 title: song.title,
