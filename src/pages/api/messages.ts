@@ -22,7 +22,7 @@ export default async function handler(
 
         // const date = new Date(queryDate); // .toISOString().split("T")[0]
 
-        const existingMessages = await prisma.dailyChat.findFirst({
+        const existingMessages = await prisma.dailyChat.findUnique({
           where: {
             date: queryDate,
           },

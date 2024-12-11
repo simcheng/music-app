@@ -40,13 +40,14 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
     const messages: Message[] = [];
 
     try {
+      const date = selectedDate.toISOString().split("T")[0];
       const response = await axios.get<MessageResponse>(
         `${BASE_URL}/api/messages`,
         {
           headers: {
             "Content-Type": "application/json",
           },
-          params: { selectedDate },
+          params: { date },
         }
       );
 
