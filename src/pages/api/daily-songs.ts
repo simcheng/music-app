@@ -57,8 +57,6 @@ export default async function handler(
 
         const date = new Date(queryDate); // Format: YYYY-MM-DD
 
-        console.log("Requested Date:", date.toISOString());
-
         // Check if there are any daily songs already set
         const existingDailySong = await prisma.dailySong.findUnique({
           where: {

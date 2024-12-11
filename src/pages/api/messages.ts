@@ -22,8 +22,6 @@ export default async function handler(
 
         const date = new Date(queryDate); // .toISOString().split("T")[0]
 
-        console.log("Requested Date:", date.toISOString());
-
         const existingMessages = await prisma.dailyChat.findFirst({
           where: {
             date: date,
