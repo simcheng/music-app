@@ -87,8 +87,9 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
 
   const handleClick = () => {
     const date = selectedDate.toISOString().split("T")[0];
-    handleSendMessage(currentName, currentMessage, date);
-    // .then(() => fetchMessages())
+    handleSendMessage(currentName, currentMessage, date).then(() =>
+      fetchMessages()
+    );
   };
 
   async function handleSendMessage(
@@ -119,7 +120,6 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
 
       setCurrentName("");
       setCurrentMessage("");
-      fetchMessages();
     }
   }
 
@@ -172,7 +172,6 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
         placeholder="Message"
         value={currentMessage}
         onChange={(e) => setCurrentMessage(e.target.value)}
-        multiline
         rows={4}
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey) {
