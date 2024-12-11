@@ -16,10 +16,13 @@ export default function Home() {
 
   return (
     <>
+      <Box sx={{ pb: "20px" }}>
+        <NavBar />
+      </Box>
       <Box
         sx={{
-          width: "80%", // Adjust width relative to screen size
-          height: "90vh", // Adjust height relative to viewport height
+          width: "90vw", // Adjust width relative to screen size
+          height: "100vh", // Adjust height relative to viewport height
           margin: "0 auto", // Center horizontally
           padding: "20px", // Optional padding
           borderRadius: "8px", // Rounded corners
@@ -29,10 +32,6 @@ export default function Home() {
           justifyContent: "space-between", // Spread out components
         }}
       >
-        <Box sx={{ pb: "20px" }}>
-          <NavBar />
-        </Box>
-
         <DatePicker
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}

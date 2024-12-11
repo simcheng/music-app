@@ -31,7 +31,7 @@ export const DatePicker: React.FC<dateProps> = ({
 }) => {
   const currDate = new Date();
   const incrementDate = () => {
-    if (!(selectedDate.getDate() + 1 > currDate.getDate()))
+    if (!(selectedDate.getDate() + 2 > currDate.getDate()))
       setSelectedDate(
         new Date(selectedDate.setDate(selectedDate.getDate() + 1))
       );

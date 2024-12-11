@@ -182,42 +182,44 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
         sx={{ marginTop: "8px" }}
       />
 
-      <List
-        sx={{
-          marginTop: "16px",
-          flexGrow: 1,
-          overflowY: "auto",
-          maxHeight: "250px",
-          backgroundColor: "#fff",
-          borderRadius: "8px",
-          padding: "8px",
-          boxShadow: "inset 0px 2px 4px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        {messages
-          .slice(0)
-          .reverse()
-          .map((msg, index) => (
-            <ListItem
-              key={index}
-              sx={{
-                wordWrap: "break-word",
-                padding: "8px 16px",
-                borderBottom: "1px solid #eee",
-                ":last-child": { borderBottom: "none" },
-              }}
-            >
-              <Stack spacing={1}>
-                <Typography variant="subtitle1" fontWeight="bold">
-                  {msg.user}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {msg.content}
-                </Typography>
-              </Stack>
-            </ListItem>
-          ))}
-      </List>
+      {messages.length > 0 && (
+        <List
+          sx={{
+            marginTop: "16px",
+            flexGrow: 1,
+            overflowY: "auto",
+            maxHeight: "250px",
+            backgroundColor: "#fff",
+            borderRadius: "8px",
+            padding: "8px",
+            boxShadow: "inset 0px 2px 4px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          {messages
+            .slice(0)
+            .reverse()
+            .map((msg, index) => (
+              <ListItem
+                key={index}
+                sx={{
+                  wordWrap: "break-word",
+                  padding: "8px 16px",
+                  borderBottom: "1px solid #eee",
+                  ":last-child": { borderBottom: "none" },
+                }}
+              >
+                <Stack spacing={0.7}>
+                  <Typography variant="subtitle1" fontWeight="bold">
+                    {msg.user}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {msg.content}
+                  </Typography>
+                </Stack>
+              </ListItem>
+            ))}
+        </List>
+      )}
     </Box>
   );
 };
