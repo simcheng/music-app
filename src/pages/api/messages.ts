@@ -20,11 +20,11 @@ export default async function handler(
             .json({ error: "Invalid or missing date parameter" });
         }
 
-        const date = new Date(queryDate); // .toISOString().split("T")[0]
+        // const date = new Date(queryDate); // .toISOString().split("T")[0]
 
         const existingMessages = await prisma.dailyChat.findFirst({
           where: {
-            date: date,
+            date: queryDate,
           },
           include: {
             messages: true, // Include the messages in the response

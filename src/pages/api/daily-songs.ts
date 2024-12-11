@@ -53,14 +53,12 @@ export default async function handler(
           return res
             .status(400)
             .json({ error: "Invalid or missing date parameter" });
-        }
-
-        const date = new Date(queryDate); // Format: YYYY-MM-DD
+        } // Format: YYYY-MM-DD
 
         // Check if there are any daily songs already set
         const existingDailySong = await prisma.dailySong.findUnique({
           where: {
-            date: date,
+            date: queryDate,
           },
           include: {
             songs: true, // Include the songs in the response
