@@ -48,7 +48,7 @@ export default async function handler(
       try {
         const { user, content, queryDate } = req.body;
 
-        const date = new Date(queryDate.toISOString().split("T")[0]);
+        const date = new Date(queryDate);
         console.log("Requested Date:", date.toISOString());
 
         let dailyChat = await prisma.dailyChat.findUnique({
