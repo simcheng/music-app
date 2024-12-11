@@ -40,10 +40,10 @@ export default function Home() {
     const songList: SongCardProps[] = []; // define songcard array to fill
 
     try {
-      const dateString = selectedDate.toISOString().split("T")[0];
+      const date = selectedDate.toISOString().split("T")[0];
       const response = await axios.get<SongCardPropsResponse>(
         `${BASE_URL}/api/daily-songs`,
-        { params: { dateString } }
+        { params: { date } }
       );
       console.log("Fetched songs:", response.data.songs);
       if (!response.data.songs) {

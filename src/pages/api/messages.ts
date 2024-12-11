@@ -12,7 +12,7 @@ export default async function handler(
     case "GET": {
       try {
         // check existing selected date passed in query for validity
-        queryDate = new Date(req.query.q as string);
+        queryDate = new Date(req.query.date as string);
 
         if (!queryDate || Array.isArray(queryDate)) {
           return res
