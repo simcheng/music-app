@@ -76,7 +76,7 @@ export default function Home() {
       setLoading(false);
     };
     fetchDailySongs();
-  }, []);
+  }, [selectedDate]);
 
   if (loading) {
     return <div>Loading...</div>;

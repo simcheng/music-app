@@ -17,7 +17,7 @@ export const DatePicker: React.FC<dateProps> = ({
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
   };
 
-  let printDate = selectedDate.toISOString();
+  let printDate = selectedDate.toISOString().split("T")[0];
 
   return (
     <Box

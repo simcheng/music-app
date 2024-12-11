@@ -82,7 +82,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
 
   useEffect(() => {
     fetchMessages();
-  }, []);
+  }, [selectedDate]);
 
   const handleClick = () => {
     const date = selectedDate.toISOString().split("T")[0];
