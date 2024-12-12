@@ -48,6 +48,10 @@ export default async function handler(
       try {
         const { user, content, queryDate } = req.body;
 
+        if (queryDate) {
+          return res.status(201).json({ querydate: queryDate });
+        }
+
         const date = new Date(queryDate);
         console.log("Requested Date:", date.toISOString());
 

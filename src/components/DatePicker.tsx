@@ -88,11 +88,44 @@ export const DatePicker: React.FC<dateProps> = ({
     fetchDailySongs();
   }, [selectedDate]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
+  // string form of date
   let printDate = selectedDate.toISOString().split("T")[0];
+
+  if (loading) {
+    return (
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            padding: "5px",
+            gap: "8px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <IconButton onClick={decrementDate}>⬅️ </IconButton>
+          <Typography variant="subtitle1" fontWeight="bold">
+            {printDate}
+          </Typography>
+          <IconButton onClick={incrementDate}>➡️</IconButton>
+        </Box>
+        <Box
+          sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+        >
+          {["", "", ""].map((index) => {
+            return (
+              <SongCard
+                imageSrc="https://images.genius.com/a5d26f305aa756a37b6fb4a1d80ceb33.800x800x1.jpg"
+                title="."
+                artist=" "
+                url=""
+              />
+            );
+          })}
+        </Box>
+      </>
+    );
+  }
 
   return (
     <>
