@@ -49,7 +49,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
         }
       );
 
-      console.log("Fetched messages:", response.data.messages)
+      console.log("Fetched messages:", response.data.messages);
 
       // const jsonResponse = await ; // parse the JSON response
       // Map the messages array to the Messages[] format
@@ -213,6 +213,16 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                     <Typography variant="subtitle1" fontWeight="bold">
                       {msg.user}
                     </Typography>
+                    {!msg.verified && (
+                      <Typography
+                        variant="body2"
+                        fontWeight="text.secondary"
+                        paddingLeft="10px"
+                        paddingTop="4px"
+                      >
+                        ✔
+                      </Typography>
+                    )}
                     <Typography
                       variant="subtitle1"
                       fontWeight="text.secondary"
@@ -220,20 +230,6 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                     >
                       {msg.timestamp.split("T")[1].slice(0, 5)}
                     </Typography>
-                    {!msg.verified && (
-                      <Typography
-                        variant="body2"
-                        fontWeight="text.secondary"
-                        paddingLeft="10px"
-                      >
-                        ✔ veri! FALSE
-                      </Typography>
-                    )}
-                    {msg.verified && (
-                      <Typography variant="body2" fontWeight="text.secondary">
-                        ✔ veri! TRUE
-                      </Typography>
-                    )}
                   </Box>
                   <Typography variant="body2" color="text.secondary">
                     {msg.content}
