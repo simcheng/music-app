@@ -49,6 +49,8 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
         }
       );
 
+      console.log("Fetched messages:", response.data.messages)
+
       // const jsonResponse = await ; // parse the JSON response
       // Map the messages array to the Messages[] format
       if (!response.data.messages) {

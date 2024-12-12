@@ -45,12 +45,14 @@ export default async function handler(
           {} as Record<string, number>
         );
 
-        const result = existingMessages?.messages.map((message) => ({
-          user: message.user,
-          content: message.content,
-          timestamp: message.timestamp,
-          verified: (contributionsMap[message.user] || 0) >= 3,
-        }));
+        const result = {
+          messages: existingMessages?.messages.map((message) => ({
+            user: message.user,
+            content: message.content,
+            timestamp: message.timestamp,
+            verified: (contributionsMap[message.user] || 0) >= 3,
+          })),
+        };
 
         console.log("API Response:", result);
 
