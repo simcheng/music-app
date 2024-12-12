@@ -21,16 +21,12 @@ export default async function handler(
             .json({ error: "Invalid or missing date parameter" });
         }
 
-        // const date = new Date(queryDate); // .toISOString().split("T")[0]
-
-        // const existingMessages = await prisma.dailyChat.findUnique({
-        //   where: {
-        //     date: queryDate,
-        //   },
-        //   include: {
-        //     messages: true, // Include the messages in the response
-        //   },
-        // });
+        const totalContributions = await prisma.message.groupBy({
+          by: ["user"],
+          _count: {
+            user: true,
+          },
+        });
 
         const existingMessages = await prisma.dailyChat.findUnique({
           where: {
@@ -40,38 +36,21 @@ export default async function handler(
             messages: true, // Include the messages in the response
           },
         });
-        type GroupedMessages = {
-          [user: string]: { content: string; timestamp: Date }[];
-        };
 
-        // Group messages by user
-        const groupedByUser = existingMessages?.messages.reduce(
-          (acc: GroupedMessages, message) => {
-            if (!acc[message.user]) {
-              acc[message.user] = [];
-            }
-            acc[message.user].push({
-              content: message.content,
-              timestamp: message.timestamp,
-            });
+        const contributionsMap = totalContributions.reduce(
+          (acc, { user, _count }) => {
+            acc[user] = _count.user;
             return acc;
           },
-          {}
+          {} as Record<string, number>
         );
 
-        if (!groupedByUser) {
-          throw new Error("Grouped messages is undefined.");
-        }
-
-        // Map results to include all users with a flag for contributors with 3 or more messages
-        const result = Object.entries(groupedByUser).map(
-          ([user, userMessages]) => ({
-            user,
-            // contributions: userMessages.length,
-            verified: userMessages.length >= 3,
-            messages: userMessages,
-          })
-        );
+        const result = existingMessages?.messages.map((message) => ({
+          user: message.user,
+          content: message.content,
+          timestamp: message.timestamp,
+          verified: (contributionsMap[message.user] || 0) >= 3,
+        }));
 
         console.log("API Response:", result);
 
@@ -90,9 +69,9 @@ export default async function handler(
 
     case "POST": {
       try {
-        const { user, content, timestamp } = req.body;
+        const { user, content, date } = req.body;
 
-        queryDate = new Date(timestamp);
+        queryDate = new Date(date);
 
         let dailyChat = await prisma.dailyChat.findUnique({
           where: { date: queryDate },
@@ -108,7 +87,6 @@ export default async function handler(
           data: {
             user,
             content,
-            timestamp,
             dailyChatId: dailyChat.id,
           },
         });
