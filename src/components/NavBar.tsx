@@ -81,14 +81,14 @@ export const Navbar: React.FC<dateProps> = ({
             component="div"
             sx={{
               fontWeight: "bold",
-              letterSpacing: 1.5,
+              letterSpacing: 1,
               background: "linear-gradient(90deg, #1565c0, #003c80)",
               backgroundSize: "400% 400%",
               animation: "gradientAnimation 5s ease infinite",
               backgroundClip: "text",
               color: "transparent",
               display: "flex",
-              alignItems: "center",
+              alignItems: "left",
               textDecoration: "none",
               fontFamily: "Helvetica",
               fontSize: { xs: "1.5rem", sm: "2rem" },
