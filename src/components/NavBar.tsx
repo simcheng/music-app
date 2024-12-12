@@ -68,7 +68,7 @@ export const Navbar: React.FC<dateProps> = ({
 
   return (
     <Box sx={{ display: "flex", pb: "20px", justifyContent: "space-between" }}>
-      <AppBar position="static" sx={{ backgroundColor: "#000000" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#000020" }}>
         <Toolbar>
           <Typography
             variant="h5"
@@ -77,8 +77,7 @@ export const Navbar: React.FC<dateProps> = ({
               flexGrow: 1,
               fontWeight: "bold",
               letterSpacing: 1.5,
-              background:
-                "linear-gradient(45deg, #1565c0, #ff4081, #7e57c2, #ab47bc)",
+              background: "linear-gradient(90deg, #1565c0, #003c80)",
               backgroundSize: "400% 400%",
               animation: "gradientAnimation 5s ease infinite",
               backgroundClip: "text",
@@ -86,7 +85,7 @@ export const Navbar: React.FC<dateProps> = ({
               display: "flex",
               alignItems: "center",
               textDecoration: "none",
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "Helvetica",
             }}
           >
             <MusicNote sx={{ marginRight: 1 }} />
@@ -106,7 +105,7 @@ export const Navbar: React.FC<dateProps> = ({
             <IconButton
               onClick={decrementDate}
               sx={{
-                padding: "8px", // Slightly larger padding for better button interaction
+                padding: "5px", // Slightly larger padding for better button interaction
                 "&:hover": {
                   backgroundColor: "#e3f2fd", // Light blue hover effect
                 },
@@ -132,7 +131,7 @@ export const Navbar: React.FC<dateProps> = ({
             <IconButton
               onClick={incrementDate}
               sx={{
-                padding: "8px", // Slightly larger padding for better button interaction
+                padding: "5px", // Slightly larger padding for better button interaction
                 "&:hover": {
                   backgroundColor: "#e3f2fd", // Light blue hover effect
                 },
