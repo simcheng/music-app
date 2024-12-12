@@ -35,7 +35,7 @@ export default function Home() {
           margin: "0 auto", // Center horizontally
           padding: "20px", // Optional padding
           borderRadius: "8px", // Rounded corners
-          backgroundColor: "#fff", // Background color
+          backgroundColor: "transparent", // Background color
           display: "flex",
           flexDirection: "column", // Arrange children vertically
         }}

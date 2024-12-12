@@ -141,7 +141,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
     hours = hours % 12 || 12; // Convert 0 to 12 for midnight
 
     // Combine into a single string
-    return ` | ${hours}:${minutes} ${ampm}, ${month}-${day}-${year}`;
+    return `${hours}:${minutes} ${ampm}, ${month}-${day}-${year}`;
   };
 
   return (
@@ -176,9 +176,12 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
             input: { color: "#fff" }, // Text color for the input
             "& .MuiOutlinedInput-root": {
               borderColor: "#888", // Light border color
-            },
-            "&:hover .MuiOutlinedInput-root": {
-              borderColor: "#fff", // Border color on hover
+              "&:hover": {
+                borderColor: "#fff", // Border color on hover
+              },
+              "&.Mui-focused": {
+                borderColor: "#1e88e5", // Focused border color
+              },
             },
             "& .MuiInputLabel-root": {
               color: "#bbb", // Lighter label color
@@ -222,9 +225,12 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
           input: { color: "#fff" }, // Text color for the input
           "& .MuiOutlinedInput-root": {
             borderColor: "#888", // Light border color
-          },
-          "&:hover .MuiOutlinedInput-root": {
-            borderColor: "#fff", // Border color on hover
+            "&:hover": {
+              borderColor: "#fff", // Border color on hover
+            },
+            "&.Mui-focused": {
+              borderColor: "#1e88e5", // Focused border color
+            },
           },
           "& .MuiInputLabel-root": {
             color: "#bbb", // Lighter label color
@@ -264,7 +270,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                       <Typography
                         variant="body2"
                         fontWeight="text.secondary"
-                        paddingLeft="10px"
+                        paddingRight="8px"
                         paddingTop="4px"
                         sx={{ color: "#1565c0" }} // Updated verified icon color to blue
                       >
@@ -281,7 +287,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                     <Typography
                       variant="subtitle1"
                       fontWeight="text.secondary"
-                      sx={{ color: "#bbb" }}
+                      sx={{ color: "#bbb", paddingLeft: "10px" }}
                     >
                       {formatDate(msg.timestamp)}
                     </Typography>
