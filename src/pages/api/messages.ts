@@ -46,21 +46,17 @@ export default async function handler(
 
     case "POST": {
       try {
-        const { user, content, queryDate } = req.body;
+        const { user, content, date } = req.body;
 
-        if (queryDate) {
-          return res.status(201).json({ querydate: queryDate });
-        }
-
-        const date = new Date(queryDate);
+        queryDate = new Date(date);
 
         let dailyChat = await prisma.dailyChat.findUnique({
-          where: { date: date },
+          where: { date: queryDate },
         });
 
         if (!dailyChat) {
           dailyChat = await prisma.dailyChat.create({
-            data: { date: date },
+            data: { date: queryDate },
           });
         }
 
@@ -79,6 +75,7 @@ export default async function handler(
         return res.status(500).json({
           error: error.message || "Internal Server Error",
           details: error, // Optionally include the full error object
+          date: queryDate,
         });
       }
     }
