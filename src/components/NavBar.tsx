@@ -80,7 +80,7 @@ export const Navbar: React.FC<dateProps> = ({
             sx={{
               display: "flex",
               justifyContent: "flex-start",
-              alignContent: "center",
+              alignItems: "center",
             }}
           >
             <MusicNoteIcon />
