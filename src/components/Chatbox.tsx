@@ -19,7 +19,6 @@ interface dateProps {
 }
 
 export type Message = {
-  id: number;
   user: string;
   content: string;
   timestamp: string; // Date of the message
@@ -27,8 +26,6 @@ export type Message = {
 };
 
 type MessageResponse = {
-  id: number;
-  date: string;
   messages: Message[];
 };
 
@@ -60,7 +57,6 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
       response.data.messages.forEach((messagesData: any) => {
         // ew this leaves the messagesData as any
         const message: Message = {
-          id: messagesData.id,
           user: messagesData.user,
           content: messagesData.content,
           timestamp: messagesData.timestamp, // Date of the message
