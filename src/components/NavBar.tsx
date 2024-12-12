@@ -7,7 +7,7 @@ import {
   IconButton,
   SvgIcon,
 } from "@mui/material";
-import { MusicNote } from "@mui/icons-material";
+import MusicNoteSharpIcon from "@mui/icons-material/MusicNote";
 
 interface dateProps {
   selectedDate: Date;
@@ -96,7 +96,7 @@ export const Navbar: React.FC<dateProps> = ({
               marginLeft: { xs: "0", sm: "20px" }, // Align the text to the left with some margin
             }}
           >
-            <MusicNote sx={{ marginRight: 1 }} />
+            <MusicNoteSharpIcon sx={{ marginRight: 1 }} />
             Shuffley
           </Typography>
 
@@ -104,7 +104,7 @@ export const Navbar: React.FC<dateProps> = ({
             sx={{
               display: "flex",
               padding: "5px",
-              justifyContent: "center",
+              justifyContent: "space-between",
               alignItems: "center",
               backgroundColor: "transparent", // Make the background transparent
               borderRadius: "8px",
