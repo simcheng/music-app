@@ -207,45 +207,35 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                 }}
               >
                 <Stack spacing={0.5}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      width: "100%",
-                    }}
-                  >
-                    <>
-                      <Typography variant="subtitle1" fontWeight="bold">
-                        {msg.user}
-                      </Typography>
-                      <Typography
-                        variant="subtitle1"
-                        fontWeight="text.secondary"
-                        paddingLeft="10px"
-                      >
-                        {msg.timestamp.split("T")[1].slice(0, 5)}
-                      </Typography>
-                    </>
-                    {msg.verified && (
-                      <Typography variant="body2" fontWeight="text.secondary">
-                        ✔ check!
-                      </Typography>
-                    )}
-
-                    {/* //   (
-                      //   <span
-                      //     style={{
-                      //       marginLeft: "8px",
-                      //       color: "gray",
-                      //       fontSize: "14px",
-                      //       display: "inline-flex",
-                      //       alignItems: "center",
-                      //     }}
-                      //   >
-                      //     ✔
-                      //   </span>
-                      // ) */}
-                  </Box>
+                  <>
+                    <Typography variant="subtitle1" fontWeight="bold">
+                      {msg.user}
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight="text.secondary"
+                      paddingLeft="10px"
+                    >
+                      {msg.timestamp.split("T")[1].slice(0, 5)}
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight="text.secondary"
+                      paddingLeft="10px"
+                    >
+                      ✔ test
+                    </Typography>
+                  </>
+                  {msg.verified && (
+                    <Typography variant="body2" fontWeight="text.secondary">
+                      ✔ veri!
+                    </Typography>
+                  )}
+                  {msg.content && (
+                    <Typography variant="body2" fontWeight="text.secondary">
+                      ✔ content!
+                    </Typography>
+                  )}
                   <Typography variant="body2" color="text.secondary">
                     {msg.content}
                   </Typography>
