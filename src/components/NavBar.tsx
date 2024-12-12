@@ -7,7 +7,7 @@ import {
   IconButton,
   SvgIcon,
 } from "@mui/material";
-import MusicNoteSharpIcon from "@mui/icons-material/MusicNote";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 interface dateProps {
   selectedDate: Date;
@@ -76,29 +76,31 @@ export const Navbar: React.FC<dateProps> = ({
             width: "100%",
           }}
         >
-          <Typography
-            variant="h5"
-            component="div"
-            sx={{
-              fontWeight: "bold",
-              letterSpacing: 1,
-              background: "linear-gradient(90deg, #1565c0, #003c80)",
-              backgroundSize: "400% 400%",
-              animation: "gradientAnimation 5s ease infinite",
-              backgroundClip: "text",
-              color: "transparent",
-              display: "flex",
-              alignItems: "left",
-              textDecoration: "none",
-              fontFamily: "Helvetica",
-              fontSize: { xs: "1.5rem", sm: "2rem" },
-              textAlign: { xs: "center", sm: "left" },
-              marginLeft: { xs: "0", sm: "20px" }, // Align the text to the left with some margin
-            }}
-          >
-            <MusicNoteSharpIcon sx={{ marginRight: 1 }} />
-            Shuffley
-          </Typography>
+          <>
+            <MusicNoteIcon />
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{
+                fontWeight: "bold",
+                letterSpacing: 0.8,
+                background: "linear-gradient(90deg, #1565c0, #003c80)",
+                backgroundSize: "400% 400%",
+                animation: "gradientAnimation 5s ease infinite",
+                backgroundClip: "text",
+                color: "transparent",
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                fontFamily: "Helvetica",
+                fontSize: { xs: "1.5rem", sm: "2rem" },
+                textAlign: { xs: "center", sm: "left" },
+                marginLeft: { xs: "0", sm: "20px" }, // Align the text to the left with some margin
+              }}
+            >
+              Shuffley
+            </Typography>
+          </>
 
           <Box
             sx={{
