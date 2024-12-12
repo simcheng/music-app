@@ -2,6 +2,7 @@ import { AppBar, Toolbar, IconButton, Typography, Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { SongCardProps, SongCard } from "@/components/SongCard";
 import Chatbox from "@/components/Chatbox";
+import Navbar from "./NavBar";
 import axios from "axios";
 
 import { BASE_URL } from "../pages";
@@ -30,17 +31,6 @@ export const DatePicker: React.FC<dateProps> = ({
   selectedDate,
   setSelectedDate,
 }) => {
-  const currDate = new Date();
-  const incrementDate = () => {
-    if (!(new Date(selectedDate.getDate() + 1) > new Date(currDate.getDate())))
-      setSelectedDate(
-        new Date(selectedDate.setDate(selectedDate.getDate() + 1))
-      );
-  };
-  const decrementDate = () => {
-    setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
-  };
-
   const [songs, setSongs] = useState<SongCardProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -89,27 +79,9 @@ export const DatePicker: React.FC<dateProps> = ({
     fetchDailySongs();
   }, [selectedDate]);
 
-  // string form of date
-  let printDate = selectedDate.toISOString().split("T")[0];
-
   if (loading) {
     return (
       <>
-        <Box
-          sx={{
-            display: "flex",
-            padding: "5px",
-            gap: "8px",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <IconButton onClick={decrementDate}>⬅️ </IconButton>
-          <Typography variant="subtitle1" fontWeight="bold">
-            {printDate}
-          </Typography>
-          <IconButton onClick={incrementDate}>➡️</IconButton>
-        </Box>
         <Box
           sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
         >
@@ -130,65 +102,17 @@ export const DatePicker: React.FC<dateProps> = ({
 
   return (
     <>
-      <Box
-        sx={{ display: "flex", pb: "20px", justifyContent: "space-between" }}
-      >
-        <AppBar position="static" color="transparent">
-          <Toolbar>
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              Music Recommender
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                padding: "5px",
-                gap: "8px",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <IconButton onClick={decrementDate}>⬅️ </IconButton>
-              <Typography variant="subtitle1" fontWeight="bold">
-                {printDate}
-              </Typography>
-              <IconButton onClick={incrementDate}>➡️</IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-      </Box>
-
-      <Box
-        sx={{
-          width: "90vw", // Adjust width relative to screen size
-          height: "100vh", // Adjust height relative to viewport height
-          margin: "0 auto", // Center horizontally
-          padding: "20px", // Optional padding
-          borderRadius: "8px", // Rounded corners
-          backgroundColor: "#fff", // Background color
-          display: "flex",
-          flexDirection: "column", // Arrange children vertically
-        }}
-      >
-        <Box
-          sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
-        >
-          {songs?.map((song, index) => {
-            return (
-              <SongCard
-                imageSrc={song.imageSrc}
-                title={song.title}
-                artist={song.artist}
-                url={song.url}
-              />
-            );
-          })}
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-          <Chatbox
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-        </Box>
+      <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
+        {songs?.map((song, index) => {
+          return (
+            <SongCard
+              imageSrc={song.imageSrc}
+              title={song.title}
+              artist={song.artist}
+              url={song.url}
+            />
+          );
+        })}
       </Box>
     </>
   );

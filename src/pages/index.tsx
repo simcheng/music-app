@@ -16,10 +16,30 @@ export default function Home() {
 
   return (
     <>
-      <DatePicker
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-      />
+      <NavBar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+      <Box
+        sx={{
+          width: "90vw", // Adjust width relative to screen size
+          height: "100vh", // Adjust height relative to viewport height
+          margin: "0 auto", // Center horizontally
+          padding: "20px", // Optional padding
+          borderRadius: "8px", // Rounded corners
+          backgroundColor: "#fff", // Background color
+          display: "flex",
+          flexDirection: "column", // Arrange children vertically
+        }}
+      >
+        <DatePicker
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+        />
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Chatbox
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
+        </Box>
+      </Box>
     </>
   );
 }
