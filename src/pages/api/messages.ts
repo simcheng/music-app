@@ -55,8 +55,8 @@ export default async function handler(
         console.log("API Response:", result);
 
         // If there are existing messages, return them
-        if (existingMessages) {
-          return res.status(200).json(existingMessages);
+        if (result) {
+          return res.status(200).json(result);
         }
         return res.status(200).json({});
       } catch (error) {
