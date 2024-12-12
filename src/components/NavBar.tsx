@@ -76,7 +76,13 @@ export const Navbar: React.FC<dateProps> = ({
             width: "100%",
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignContent: "center",
+            }}
+          >
             <MusicNoteIcon />
             <Typography
               variant="h5"
