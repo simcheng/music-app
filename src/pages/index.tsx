@@ -29,7 +29,6 @@ export default function Home() {
           backgroundColor: "#fff", // Background color
           display: "flex",
           flexDirection: "column", // Arrange children vertically
-          justifyContent: "space-between", // Spread out components
         }}
       >
         <DatePicker

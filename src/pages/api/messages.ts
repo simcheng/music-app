@@ -53,7 +53,6 @@ export default async function handler(
         }
 
         const date = new Date(queryDate);
-        console.log("Requested Date:", date.toISOString());
 
         let dailyChat = await prisma.dailyChat.findUnique({
           where: { date: date },
