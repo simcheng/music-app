@@ -207,7 +207,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                 }}
               >
                 <Stack spacing={0.5}>
-                  <>
+                  <Box sx={{ justifyContent: "flex-start" }}>
                     <Typography variant="subtitle1" fontWeight="bold">
                       {msg.user}
                     </Typography>
@@ -225,7 +225,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                     >
                       ✔ test
                     </Typography>
-                  </>
+                  </Box>
                   {msg.verified && (
                     <Typography variant="body2" fontWeight="text.secondary">
                       ✔ veri!
@@ -233,7 +233,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                   )}
                   {msg.content && (
                     <Typography variant="body2" fontWeight="text.secondary">
-                      ✔ content!
+                      {msg.verified}
                     </Typography>
                   )}
                   <Typography variant="body2" color="text.secondary">
