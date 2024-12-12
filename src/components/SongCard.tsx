@@ -27,9 +27,10 @@ export const SongCard: React.FC<SongCardProps> = ({
           borderRadius: "8px",
           overflow: "hidden",
           cursor: "pointer",
+          transition: "transform 0.3s ease",
           "&:hover": {
-            transform: "scale(1.05)",
-            transition: "transform 0.3s ease",
+            transform: "scale(1.05)", // Hover effect for scaling up
+            backgroundColor: "#444", // Darken the background on hover
           },
         }}
       >
@@ -48,15 +49,11 @@ export const SongCard: React.FC<SongCardProps> = ({
             bottom: 0,
             left: 0,
             width: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backgroundColor: "rgba(0, 0, 0, 0.5)", // Dark overlay at the bottom
             padding: "8px",
           }}
         >
-          <Typography
-            variant="body1"
-            color="white"
-            fontWeight={"fontWeightBold"}
-          >
+          <Typography variant="body1" color="white" fontWeight="fontWeightBold">
             {title}
           </Typography>
           <Typography variant="body2" color="white">

@@ -1,5 +1,13 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, Box, IconButton } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  IconButton,
+  SvgIcon,
+} from "@mui/material";
+import { MusicNote } from "@mui/icons-material";
 
 interface dateProps {
   selectedDate: Date;
@@ -12,7 +20,10 @@ export const Navbar: React.FC<dateProps> = ({
 }) => {
   const currDate = new Date();
   const incrementDate = () => {
-    if (!(new Date(selectedDate.getDate() + 1) > new Date(currDate.getDate())))
+    let tomorrow = new Date(selectedDate);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    // caps the date at the current UTC date
+    if (!(tomorrow > currDate))
       setSelectedDate(
         new Date(selectedDate.setDate(selectedDate.getDate() + 1))
       );
@@ -21,15 +32,65 @@ export const Navbar: React.FC<dateProps> = ({
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
   };
 
+  // custom arrows (ai)
+  const CustomArrowIcon: React.FC<{ direction: "left" | "right" }> = ({
+    direction,
+  }) => {
+    return (
+      <SvgIcon
+        sx={{
+          fontSize: "2rem", // Adjust the icon size
+          color: "#ffffff", // White color for the icons for contrast
+          "&:hover": {
+            color: "#1565c0", // Hover color for interactivity
+            transform: "scale(1.2)", // Slightly enlarge the icon on hover
+            cursor: "pointer", // Add pointer cursor to indicate it's interactive
+          },
+          transition: "transform 0.2s, color 0.2s", // Smooth transition for hover effect
+        }}
+      >
+        {direction === "left" ? (
+          <path d="M19 12H5m7-7l-7 7 7 7" />
+        ) : (
+          <path d="M5 12h14m-7 7l7-7-7-7" />
+        )}
+      </SvgIcon>
+    );
+  };
+
   // string form of date
-  let printDate = selectedDate.toISOString().split("T")[0];
+  const formattedDate = selectedDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <Box sx={{ display: "flex", pb: "20px", justifyContent: "space-between" }}>
-      <AppBar position="static" color="transparent">
+      <AppBar position="static" sx={{ backgroundColor: "#000000" }}>
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Music Recommender
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{
+              flexGrow: 1,
+              fontWeight: "bold",
+              letterSpacing: 1.5,
+              background:
+                "linear-gradient(45deg, #1565c0, #ff4081, #7e57c2, #ab47bc)",
+              backgroundSize: "400% 400%",
+              animation: "gradientAnimation 5s ease infinite",
+              backgroundClip: "text",
+              color: "transparent",
+              display: "flex",
+              alignItems: "center",
+              textDecoration: "none",
+              fontFamily: "'Playfair Display', serif",
+            }}
+          >
+            <MusicNote sx={{ marginRight: 1 }} />
+            Shuffley
           </Typography>
           <Box
             sx={{
@@ -38,13 +99,47 @@ export const Navbar: React.FC<dateProps> = ({
               gap: "8px",
               justifyContent: "center",
               alignItems: "center",
+              backgroundColor: "transparent", // Make the background transparent
+              borderRadius: "8px", // Rounded corners for a soft look
             }}
           >
-            <IconButton onClick={decrementDate}>⬅️ </IconButton>
-            <Typography variant="subtitle1" fontWeight="bold">
-              {printDate}
+            <IconButton
+              onClick={decrementDate}
+              sx={{
+                padding: "8px", // Slightly larger padding for better button interaction
+                "&:hover": {
+                  backgroundColor: "#e3f2fd", // Light blue hover effect
+                },
+              }}
+            >
+              <CustomArrowIcon direction="left" />
+            </IconButton>
+
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontWeight: "bold", // Makes the date text bold
+                fontSize: "1.2rem", // Increase the font size for better readability
+                color: "#ffffff", // White color for text to contrast against the black background
+                "&:hover": {
+                  color: "#1976d2", // Change text color on hover
+                },
+              }}
+            >
+              {formattedDate}
             </Typography>
-            <IconButton onClick={incrementDate}>➡️</IconButton>
+
+            <IconButton
+              onClick={incrementDate}
+              sx={{
+                padding: "8px", // Slightly larger padding for better button interaction
+                "&:hover": {
+                  backgroundColor: "#e3f2fd", // Light blue hover effect
+                },
+              }}
+            >
+              <CustomArrowIcon direction="right" />
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>

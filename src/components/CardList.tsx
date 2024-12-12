@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { SongCardProps, SongCard } from "@/components/SongCard";
 import axios from "axios";
@@ -81,18 +81,23 @@ export const CardList: React.FC<dateProps> = ({
     return (
       <>
         <Box
-          sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            gap: "16px", // Adding spacing between cards
+            padding: "20px", // Padding around the container
+          }}
         >
-          {["", "", ""].map((index) => {
-            return (
-              <SongCard
-                imageSrc="https://assets.genius.com/images/default_cover_image.png"
-                title=" "
-                artist=" "
-                url={BASE_URL}
-              />
-            );
-          })}
+          {["", "", ""].map((_, index) => (
+            <SongCard
+              key={index}
+              imageSrc="https://assets.genius.com/images/default_cover_image.png"
+              title=" "
+              artist=" "
+              url={BASE_URL}
+            />
+          ))}
         </Box>
       </>
     );
@@ -100,17 +105,24 @@ export const CardList: React.FC<dateProps> = ({
 
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
-        {songs?.map((song, index) => {
-          return (
-            <SongCard
-              imageSrc={song.imageSrc}
-              title={song.title}
-              artist={song.artist}
-              url={song.url}
-            />
-          );
-        })}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "16px", // Spacing between cards
+          padding: "20px", // Padding around the container
+        }}
+      >
+        {songs?.map((song, index) => (
+          <SongCard
+            key={index}
+            imageSrc={song.imageSrc}
+            title={song.title}
+            artist={song.artist}
+            url={song.url}
+          />
+        ))}
       </Box>
     </>
   );

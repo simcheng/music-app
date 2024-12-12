@@ -15,7 +15,18 @@ export default function Home() {
   );
 
   return (
-    <>
+    <Box
+      sx={{
+        width: "100vw", // Full viewport width
+        height: "100vh", // Full viewport height
+        margin: "0", // Remove default margin
+        padding: "0", // Optional: Remove padding if needed
+        backgroundColor: "black", // Set background to black
+        color: "white", // Text color to white for contrast
+        display: "flex",
+        flexDirection: "column", // Arrange children vertically
+      }}
+    >
       <NavBar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
       <Box
         sx={{
@@ -40,6 +51,6 @@ export default function Home() {
           />
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }

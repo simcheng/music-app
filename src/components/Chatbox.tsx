@@ -87,9 +87,11 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
 
   const handleClick = () => {
     const timestamp = selectedDate.toISOString();
-    handleSendMessage(currentName, currentMessage, timestamp).then(() =>
-      fetchMessages()
-    );
+    handleSendMessage(
+      currentName.trim(),
+      currentMessage.trim(),
+      timestamp
+    ).then(() => fetchMessages());
   };
 
   async function handleSendMessage(
@@ -123,10 +125,29 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
     }
   }
 
+  const formatDate = (timestamp: string) => {
+    // convert backend passed string to Date
+    const date = new Date(timestamp);
+
+    // string form of date
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, "0");
+    const year = date.getFullYear();
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
+
+    // Convert hours to 12-hour format
+    hours = hours % 12 || 12; // Convert 0 to 12 for midnight
+
+    // Combine into a single string
+    return ` | ${hours}:${minutes} ${ampm}, ${month}-${day}-${year}`;
+  };
+
   return (
     <Box
       sx={{
-        border: "1px solid #ccc",
+        border: "1px solid #ddd", // Light border for the container
         borderRadius: "8px",
         width: "100%",
         maxWidth: "800px",
@@ -134,11 +155,11 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
         display: "flex",
         flexDirection: "column",
         gap: "16px",
-        backgroundColor: "#f9f9f9",
+        backgroundColor: "#121212", // Dark background for the chatbox
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
       }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom sx={{ color: "white" }}>
         Leave your thoughts here:
       </Typography>
 
@@ -149,7 +170,20 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
           placeholder="Name"
           value={currentName}
           onChange={(e) => setCurrentName(e.target.value)}
-          sx={{ flex: 1, maxWidth: "100%" }}
+          sx={{
+            flex: 1,
+            maxWidth: "100%",
+            input: { color: "#fff" }, // Text color for the input
+            "& .MuiOutlinedInput-root": {
+              borderColor: "#888", // Light border color
+            },
+            "&:hover .MuiOutlinedInput-root": {
+              borderColor: "#fff", // Border color on hover
+            },
+            "& .MuiInputLabel-root": {
+              color: "#bbb", // Lighter label color
+            },
+          }}
         />
         <Button
           variant="contained"
@@ -160,6 +194,10 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
             fontSize: "1rem",
             padding: "0 24px",
             textTransform: "none",
+            backgroundColor: "#1e88e5", // Primary color
+            "&:hover": {
+              backgroundColor: "#1565c0", // Darker blue on hover
+            },
           }}
         >
           Send
@@ -179,7 +217,19 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
             handleClick();
           }
         }}
-        sx={{ marginTop: "8px" }}
+        sx={{
+          marginTop: "8px",
+          input: { color: "#fff" }, // Text color for the input
+          "& .MuiOutlinedInput-root": {
+            borderColor: "#888", // Light border color
+          },
+          "&:hover .MuiOutlinedInput-root": {
+            borderColor: "#fff", // Border color on hover
+          },
+          "& .MuiInputLabel-root": {
+            color: "#bbb", // Lighter label color
+          },
+        }}
       />
 
       {messages.length > 0 && (
@@ -187,9 +237,9 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
           sx={{
             marginTop: "16px",
             flexGrow: 1,
-            overflowY: "auto",
+            overflowY: "scroll",
             maxHeight: "250px",
-            backgroundColor: "#fff",
+            backgroundColor: "#1e1e1e", // Darker background for the message list
             borderRadius: "8px",
             padding: "8px",
             boxShadow: "inset 0px 2px 4px rgba(0, 0, 0, 0.1)",
@@ -204,34 +254,43 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                 sx={{
                   wordWrap: "break-word",
                   padding: "8px 16px",
-                  borderBottom: "1px solid #eee",
+                  borderBottom: "1px solid #333", // Darker border for each message
                   ":last-child": { borderBottom: "none" },
                 }}
               >
                 <Stack spacing={0.5}>
                   <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
-                    <Typography variant="subtitle1" fontWeight="bold">
-                      {msg.user}
-                    </Typography>
                     {msg.verified && (
                       <Typography
                         variant="body2"
                         fontWeight="text.secondary"
                         paddingLeft="10px"
                         paddingTop="4px"
+                        sx={{ color: "#1565c0" }} // Updated verified icon color to blue
                       >
                         ✔
                       </Typography>
                     )}
                     <Typography
                       variant="subtitle1"
-                      fontWeight="text.secondary"
-                      paddingLeft="10px"
+                      fontWeight="bold"
+                      sx={{ color: "#fff" }}
                     >
-                      {msg.timestamp.split("T")[1].slice(0, 5)}
+                      {msg.user}
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight="text.secondary"
+                      sx={{ color: "#bbb" }}
+                    >
+                      {formatDate(msg.timestamp)}
                     </Typography>
                   </Box>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ color: "#ddd" }}
+                  >
                     {msg.content}
                   </Typography>
                 </Stack>

@@ -1,6 +1,7 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import "@/styles/globals.css";
+import "@fontsource/playfair-display/700.css";
 
 import type { AppProps } from "next/app";
 
