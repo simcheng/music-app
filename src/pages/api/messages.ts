@@ -57,10 +57,10 @@ export default async function handler(
             return acc;
           },
           {}
-        ); 
+        );
 
         if (!groupedByUser) {
-          throw new Error("Grouped messages is undefined."); 
+          throw new Error("Grouped messages is undefined.");
         }
 
         // Map results to include all users with a flag for contributors with 3 or more messages
@@ -73,7 +73,7 @@ export default async function handler(
           })
         );
 
-
+        console.log("API Response:", result);
 
         // If there are existing messages, return them
         if (existingMessages) {

@@ -208,14 +208,18 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
               >
                 <Stack spacing={0.5}>
                   <Box
-                    sx={{ display: "flex", justifyContent: "space-between" }}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "100%",
+                    }}
                   >
                     <>
                       <Typography variant="subtitle1" fontWeight="bold">
                         {msg.user}
                       </Typography>
                       <Typography variant="body2" fontWeight="text.secondary">
-                        {msg.timestamp}.split("T")[1][:4]
+                        {msg.timestamp.split("T")[1].slice(0, 4)}
                       </Typography>
                     </>
                     {msg.verified && (
