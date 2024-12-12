@@ -76,14 +76,14 @@ export const Navbar: React.FC<dateProps> = ({
             width: "100%",
           }}
         >
-          <>
+          <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
             <MusicNoteIcon />
             <Typography
               variant="h5"
               component="div"
               sx={{
                 fontWeight: "bold",
-                letterSpacing: 0.8,
+                letterSpacing: 1,
                 background: "linear-gradient(90deg, #1565c0, #003c80)",
                 backgroundSize: "400% 400%",
                 animation: "gradientAnimation 5s ease infinite",
@@ -100,7 +100,7 @@ export const Navbar: React.FC<dateProps> = ({
             >
               Shuffley
             </Typography>
-          </>
+          </Box>
 
           <Box
             sx={{
