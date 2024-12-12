@@ -166,7 +166,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
       <Box sx={{ display: "flex", gap: "8px", alignItems: "center" }}>
         <TextField
           fullWidth
-          variant="filled"
+          variant="outlined"
           placeholder="Name"
           value={currentName}
           onChange={(e) => setCurrentName(e.target.value)}

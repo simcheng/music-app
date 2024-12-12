@@ -90,7 +90,7 @@ export const Navbar: React.FC<dateProps> = ({
                 backgroundClip: "text",
                 color: "transparent",
                 display: "flex",
-                alignItems: "center",
+                alignItems: "left",
                 textDecoration: "none",
                 fontFamily: "Helvetica",
                 fontSize: { xs: "1.5rem", sm: "2rem" },
