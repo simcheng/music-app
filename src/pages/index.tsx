@@ -31,11 +31,12 @@ export default function Home() {
       <Box
         sx={{
           width: "90vw", // Adjust width relative to screen size
-          height: "100vh", // Adjust height relative to viewport height
+          minHeight: "100vh", // Adjust height relative to viewport height
           margin: "0 auto", // Center horizontally
           padding: "20px", // Optional padding
           borderRadius: "8px", // Rounded corners
-          backgroundColor: "transparent", // Background color
+          overflowY: "auto",
+          backgroundColor: "black", // Background color
           display: "flex",
           flexDirection: "column", // Arrange children vertically
         }}
