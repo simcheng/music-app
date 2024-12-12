@@ -84,7 +84,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
   }, [selectedDate]);
 
   const handleClick = () => {
-    const timestamp = selectedDate.toISOString().split("T")[0];
+    const timestamp = selectedDate.toISOString();
     handleSendMessage(currentName, currentMessage, timestamp).then(() =>
       fetchMessages()
     );
@@ -207,22 +207,24 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                 }}
               >
                 <Stack spacing={0.5}>
-                  <Box sx={{ justifyContent: "space-between" }}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
                     <>
                       <Typography variant="subtitle1" fontWeight="bold">
                         {msg.user}
                       </Typography>
                       <Typography variant="body2" fontWeight="text.secondary">
-                        {msg.timestamp}
+                        {msg.timestamp}.split("T")[1][:4]
                       </Typography>
                     </>
-                    {
-                      msg.verified && (
-                        <Typography variant="body2" fontWeight="text.secondary">
-                          ✔ check!
-                        </Typography>
-                      )
-                      //   (
+                    {msg.verified && (
+                      <Typography variant="body2" fontWeight="text.secondary">
+                        ✔ check!
+                      </Typography>
+                    )}
+
+                    {/* //   (
                       //   <span
                       //     style={{
                       //       marginLeft: "8px",
@@ -234,8 +236,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                       //   >
                       //     ✔
                       //   </span>
-                      // )
-                    }
+                      // ) */}
                   </Box>
                   <Typography variant="body2" color="text.secondary">
                     {msg.content}
