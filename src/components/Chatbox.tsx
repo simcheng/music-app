@@ -88,8 +88,8 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
   }, [selectedDate]);
 
   const handleClick = () => {
-    const date = selectedDate.toISOString();
-    handleSendMessage(currentName, currentMessage, date).then(() =>
+    const timestamp = selectedDate.toISOString();
+    handleSendMessage(currentName, currentMessage, timestamp).then(() =>
       fetchMessages()
     );
   };
@@ -97,7 +97,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
   async function handleSendMessage(
     user: string,
     content: string,
-    date: string
+    timestamp: string
   ) {
     if (currentMessage.trim() !== "" && currentName.trim() !== "") {
       try {
@@ -106,7 +106,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
           {
             user,
             content,
-            date,
+            timestamp,
           },
           {
             headers: {

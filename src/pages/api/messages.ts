@@ -63,6 +63,8 @@ export default async function handler(
           verified: (contributionsMap[message.user] || 0) >= 3,
         }));
 
+        console.log("API Response:", existingMessages);
+
         // If there are existing messages, return them
         if (existingMessages) {
           return res.status(200).json(result);
