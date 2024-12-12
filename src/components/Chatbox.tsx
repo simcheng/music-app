@@ -84,7 +84,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
   }, [selectedDate]);
 
   const handleClick = () => {
-    const timestamp = selectedDate.toISOString();
+    const timestamp = selectedDate.toISOString().split("T")[0];
     handleSendMessage(currentName, currentMessage, timestamp).then(() =>
       fetchMessages()
     );
@@ -216,19 +216,26 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                         {msg.timestamp}
                       </Typography>
                     </>
-                    {msg.verified && (
-                      <span
-                        style={{
-                          marginLeft: "8px",
-                          color: "gray",
-                          fontSize: "14px",
-                          display: "inline-flex",
-                          alignItems: "center",
-                        }}
-                      >
-                        ✔
-                      </span>
-                    )}
+                    {
+                      msg.verified && (
+                        <Typography variant="body2" fontWeight="text.secondary">
+                          ✔ check!
+                        </Typography>
+                      )
+                      //   (
+                      //   <span
+                      //     style={{
+                      //       marginLeft: "8px",
+                      //       color: "gray",
+                      //       fontSize: "14px",
+                      //       display: "inline-flex",
+                      //       alignItems: "center",
+                      //     }}
+                      //   >
+                      //     ✔
+                      //   </span>
+                      // )
+                    }
                   </Box>
                   <Typography variant="body2" color="text.secondary">
                     {msg.content}
