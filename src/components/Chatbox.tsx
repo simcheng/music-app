@@ -213,7 +213,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                     <Typography variant="subtitle1" fontWeight="bold">
                       {msg.user}
                     </Typography>
-                    {!msg.verified && (
+                    {msg.verified && (
                       <Typography
                         variant="body2"
                         fontWeight="text.secondary"
