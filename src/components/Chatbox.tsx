@@ -174,18 +174,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
             flex: 1,
             maxWidth: "100%",
             input: { color: "#fff" }, // Text color for the input
-            "& .MuiOutlinedInput-root": {
-              borderColor: "#888", // Light border color
-              "&:hover": {
-                borderColor: "#fff", // Border color on hover
-              },
-              "&.Mui-focused": {
-                borderColor: "#1e88e5", // Focused border color
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "#bbb", // Lighter label color
-            },
+            borderColor: "#888",
           }}
         />
         <Button
@@ -223,18 +212,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
         sx={{
           marginTop: "8px",
           input: { color: "#fff" }, // Text color for the input
-          "& .MuiOutlinedInput-root": {
-            borderColor: "#888", // Light border color
-            "&:hover": {
-              borderColor: "#fff", // Border color on hover
-            },
-            "&.Mui-focused": {
-              borderColor: "#1e88e5", // Focused border color
-            },
-          },
-          "& .MuiInputLabel-root": {
-            color: "#bbb", // Lighter label color
-          },
+          borderColor: "#888",
         }}
       />
 

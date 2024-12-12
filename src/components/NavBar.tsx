@@ -69,12 +69,17 @@ export const Navbar: React.FC<dateProps> = ({
   return (
     <Box sx={{ display: "flex", pb: "20px", justifyContent: "space-between" }}>
       <AppBar position="static" sx={{ backgroundColor: "#000020" }}>
-        <Toolbar>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
           <Typography
             variant="h5"
             component="div"
             sx={{
-              flexGrow: 1,
               fontWeight: "bold",
               letterSpacing: 1.5,
               background: "linear-gradient(90deg, #1565c0, #003c80)",
@@ -86,28 +91,34 @@ export const Navbar: React.FC<dateProps> = ({
               alignItems: "center",
               textDecoration: "none",
               fontFamily: "Helvetica",
+              fontSize: { xs: "1.5rem", sm: "2rem" },
+              textAlign: { xs: "center", sm: "left" },
+              marginLeft: { xs: "0", sm: "20px" }, // Align the text to the left with some margin
             }}
           >
             <MusicNote sx={{ marginRight: 1 }} />
             Shuffley
           </Typography>
+
           <Box
             sx={{
               display: "flex",
               padding: "5px",
-              gap: "8px",
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "transparent", // Make the background transparent
-              borderRadius: "8px", // Rounded corners for a soft look
+              borderRadius: "8px",
+              flexDirection: { xs: "column", sm: "row" },
+              gap: { xs: "12px", sm: "8px" },
+              width: { xs: "100%", sm: "auto" },
             }}
           >
             <IconButton
               onClick={decrementDate}
               sx={{
-                padding: "5px", // Slightly larger padding for better button interaction
+                padding: "5px",
                 "&:hover": {
-                  backgroundColor: "#e3f2fd", // Light blue hover effect
+                  backgroundColor: "#e3f2fd",
                 },
               }}
             >
@@ -117,11 +128,11 @@ export const Navbar: React.FC<dateProps> = ({
             <Typography
               variant="subtitle1"
               sx={{
-                fontWeight: "bold", // Makes the date text bold
-                fontSize: "1.2rem", // Increase the font size for better readability
-                color: "#ffffff", // White color for text to contrast against the black background
+                fontWeight: "bold",
+                fontSize: { xs: "1rem", sm: "1.2rem" },
+                color: "#ffffff",
                 "&:hover": {
-                  color: "#1976d2", // Change text color on hover
+                  color: "#1976d2",
                 },
               }}
             >
@@ -131,9 +142,9 @@ export const Navbar: React.FC<dateProps> = ({
             <IconButton
               onClick={incrementDate}
               sx={{
-                padding: "5px", // Slightly larger padding for better button interaction
+                padding: "5px",
                 "&:hover": {
-                  backgroundColor: "#e3f2fd", // Light blue hover effect
+                  backgroundColor: "#e3f2fd",
                 },
               }}
             >
