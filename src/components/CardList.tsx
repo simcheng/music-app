@@ -1,8 +1,6 @@
 import { AppBar, Toolbar, IconButton, Typography, Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { SongCardProps, SongCard } from "@/components/SongCard";
-import Chatbox from "@/components/Chatbox";
-import Navbar from "./NavBar";
 import axios from "axios";
 
 import { BASE_URL } from "../pages";
@@ -27,7 +25,7 @@ type SongCardPropsResponse = {
   songs: Song[];
 };
 
-export const DatePicker: React.FC<dateProps> = ({
+export const CardList: React.FC<dateProps> = ({
   selectedDate,
   setSelectedDate,
 }) => {

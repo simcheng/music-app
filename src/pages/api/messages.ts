@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../lib/prisma";
+import { Message } from "@/components/Chatbox";
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,6 +23,22 @@ export default async function handler(
 
         // const date = new Date(queryDate); // .toISOString().split("T")[0]
 
+        // const existingMessages = await prisma.dailyChat.findUnique({
+        //   where: {
+        //     date: queryDate,
+        //   },
+        //   include: {
+        //     messages: true, // Include the messages in the response
+        //   },
+        // });
+
+        const totalContributions = await prisma.message.groupBy({
+          by: ["user"],
+          _count: {
+            user: true,
+          },
+        });
+
         const existingMessages = await prisma.dailyChat.findUnique({
           where: {
             date: queryDate,
@@ -31,9 +48,24 @@ export default async function handler(
           },
         });
 
+        const contributionsMap = totalContributions.reduce(
+          (acc, { user, _count }) => {
+            acc[user] = _count.user;
+            return acc;
+          },
+          {} as Record<string, number>
+        );
+
+        const result = existingMessages?.messages.map((message) => ({
+          user: message.user,
+          content: message.content,
+          timestamp: message.timestamp,
+          verified: (contributionsMap[message.user] || 0) >= 3,
+        }));
+
         // If there are existing messages, return them
         if (existingMessages) {
-          return res.status(200).json(existingMessages);
+          return res.status(200).json(result);
         }
         return res.status(200).json({});
       } catch (error) {
@@ -46,9 +78,9 @@ export default async function handler(
 
     case "POST": {
       try {
-        const { user, content, date } = req.body;
+        const { user, content, timestamp } = req.body;
 
-        queryDate = new Date(date);
+        queryDate = new Date(timestamp.split("T")[0]);
 
         let dailyChat = await prisma.dailyChat.findUnique({
           where: { date: queryDate },
@@ -64,6 +96,7 @@ export default async function handler(
           data: {
             user,
             content,
+            timestamp,
             dailyChatId: dailyChat.id,
           },
         });

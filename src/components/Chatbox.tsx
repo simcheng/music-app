@@ -23,6 +23,7 @@ export type Message = {
   user: string;
   content: string;
   timestamp: string; // Date of the message
+  verified: boolean;
 };
 
 type MessageResponse = {
@@ -63,6 +64,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
           user: messagesData.user,
           content: messagesData.content,
           timestamp: messagesData.timestamp, // Date of the message
+          verified: messagesData.verified,
         };
 
         messages.push(message);
@@ -86,7 +88,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
   }, [selectedDate]);
 
   const handleClick = () => {
-    const date = selectedDate.toISOString().split("T")[0];
+    const date = selectedDate.toISOString();
     handleSendMessage(currentName, currentMessage, date).then(() =>
       fetchMessages()
     );
@@ -208,10 +210,30 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
                   ":last-child": { borderBottom: "none" },
                 }}
               >
-                <Stack spacing={0.7}>
-                  <Typography variant="subtitle1" fontWeight="bold">
-                    {msg.user}
-                  </Typography>
+                <Stack spacing={0.5}>
+                  <Box sx={{ justifyContent: "space-between" }}>
+                    <>
+                      <Typography variant="subtitle1" fontWeight="bold">
+                        {msg.user}
+                      </Typography>
+                      <Typography variant="body2" fontWeight="text.secondary">
+                        {msg.timestamp}
+                      </Typography>
+                    </>
+                    {msg.verified && (
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          color: "gray",
+                          fontSize: "14px",
+                          display: "inline-flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        ✔
+                      </span>
+                    )}
+                  </Box>
                   <Typography variant="body2" color="text.secondary">
                     {msg.content}
                   </Typography>

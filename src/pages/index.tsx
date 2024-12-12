@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import NavBar from "@/components/NavBar";
 import Chatbox from "@/components/Chatbox";
-import { DatePicker } from "@/components/DatePicker";
+import { CardList } from "@/components/CardList";
 
 // site name
 
@@ -29,7 +29,7 @@ export default function Home() {
           flexDirection: "column", // Arrange children vertically
         }}
       >
-        <DatePicker
+        <CardList
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
         />
