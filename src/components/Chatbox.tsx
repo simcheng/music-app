@@ -149,7 +149,7 @@ const Chatbox: React.FC<dateProps> = ({ selectedDate }) => {
           placeholder="Name"
           value={currentName}
           onChange={(e) => setCurrentName(e.target.value)}
-          sx={{ flex: 1, maxWidth: "100%", marginLeft: "4px" }}
+          sx={{ flex: 1, maxWidth: "100%" }}
         />
         <Button
           variant="contained"

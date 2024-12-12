@@ -1,6 +1,7 @@
-import { IconButton, Typography, Box } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography, Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { SongCardProps, SongCard } from "@/components/SongCard";
+import Chatbox from "@/components/Chatbox";
 import axios from "axios";
 
 import { BASE_URL } from "../pages";
@@ -31,7 +32,7 @@ export const DatePicker: React.FC<dateProps> = ({
 }) => {
   const currDate = new Date();
   const incrementDate = () => {
-    if (!(selectedDate.getDate() + 1 > currDate.getDate()))
+    if (!(new Date(selectedDate.getDate() + 1) > new Date(currDate.getDate())))
       setSelectedDate(
         new Date(selectedDate.setDate(selectedDate.getDate() + 1))
       );
@@ -115,10 +116,10 @@ export const DatePicker: React.FC<dateProps> = ({
           {["", "", ""].map((index) => {
             return (
               <SongCard
-                imageSrc="https://images.genius.com/a5d26f305aa756a37b6fb4a1d80ceb33.800x800x1.jpg"
-                title="."
+                imageSrc="https://assets.genius.com/images/default_cover_image.png"
+                title=" "
                 artist=" "
-                url=""
+                url={BASE_URL}
               />
             );
           })}
@@ -130,31 +131,64 @@ export const DatePicker: React.FC<dateProps> = ({
   return (
     <>
       <Box
+        sx={{ display: "flex", pb: "20px", justifyContent: "space-between" }}
+      >
+        <AppBar position="static" color="transparent">
+          <Toolbar>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              Music Recommender
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                padding: "5px",
+                gap: "8px",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <IconButton onClick={decrementDate}>⬅️ </IconButton>
+              <Typography variant="subtitle1" fontWeight="bold">
+                {printDate}
+              </Typography>
+              <IconButton onClick={incrementDate}>➡️</IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </Box>
+
+      <Box
         sx={{
+          width: "90vw", // Adjust width relative to screen size
+          height: "100vh", // Adjust height relative to viewport height
+          margin: "0 auto", // Center horizontally
+          padding: "20px", // Optional padding
+          borderRadius: "8px", // Rounded corners
+          backgroundColor: "#fff", // Background color
           display: "flex",
-          padding: "5px",
-          gap: "8px",
-          justifyContent: "center",
-          alignItems: "center",
+          flexDirection: "column", // Arrange children vertically
         }}
       >
-        <IconButton onClick={decrementDate}>⬅️ </IconButton>
-        <Typography variant="subtitle1" fontWeight="bold">
-          {printDate}
-        </Typography>
-        <IconButton onClick={incrementDate}>➡️</IconButton>
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
-        {songs?.map((song, index) => {
-          return (
-            <SongCard
-              imageSrc={song.imageSrc}
-              title={song.title}
-              artist={song.artist}
-              url={song.url}
-            />
-          );
-        })}
+        <Box
+          sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+        >
+          {songs?.map((song, index) => {
+            return (
+              <SongCard
+                imageSrc={song.imageSrc}
+                title={song.title}
+                artist={song.artist}
+                url={song.url}
+              />
+            );
+          })}
+        </Box>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Chatbox
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
+        </Box>
       </Box>
     </>
   );
