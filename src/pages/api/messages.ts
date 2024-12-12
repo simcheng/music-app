@@ -71,12 +71,14 @@ export default async function handler(
 
     case "POST": {
       try {
-        const { user, content, date } = req.body;
+        const { user, content, timestamp } = req.body;
 
-        queryDate = new Date(date);
+        queryDate = new Date(timestamp);
 
         let dailyChat = await prisma.dailyChat.findUnique({
-          where: { date: queryDate },
+          where: {
+            date: queryDate,
+          },
         });
 
         if (!dailyChat) {
