@@ -111,7 +111,7 @@ export const Navbar: React.FC<dateProps> = ({
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "space-between",
               alignItems: "center",
               minWidth: "400px",
               gap: "8px",
