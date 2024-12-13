@@ -132,7 +132,7 @@ export const Navbar: React.FC<dateProps> = ({
             <Typography
               variant="subtitle1"
               sx={{
-                fontWeight: "bold",
+                fontWeight: "medium",
                 fontSize: { xs: "1rem", sm: "1.2rem" },
                 color: "#ffffff",
                 textAlign: "center",
