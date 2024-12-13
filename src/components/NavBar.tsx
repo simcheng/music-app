@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdaptgiterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 // taking props from parent
