@@ -113,6 +113,7 @@ export const Navbar: React.FC<dateProps> = ({
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              minWidth: "400px",
               gap: "8px",
             }}
           >
