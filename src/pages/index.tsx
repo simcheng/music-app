@@ -4,6 +4,8 @@ import { useState } from "react";
 import NavBar from "@/components/NavBar";
 import Chatbox from "@/components/Chatbox";
 import { CardList } from "@/components/CardList";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // site name
 
