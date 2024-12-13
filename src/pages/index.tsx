@@ -6,6 +6,7 @@ import Chatbox from "@/components/Chatbox";
 import { CardList } from "@/components/CardList";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SP } from "next/dist/shared/lib/utils";
 
 // site name
 
@@ -18,6 +19,8 @@ export default function Home() {
 
   return (
     <>
+      <Analytics />
+      <SpeedInsights />
       <NavBar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
       <Box
         sx={{
