@@ -86,8 +86,7 @@ export const CardList: React.FC<dateProps> = ({
             justifyContent: "center",
             flexWrap: "wrap",
             gap: "16px", // Adding spacing between cards
-            paddingTop: "20px",
-            paddingBottom: "15px",
+            padding: "20px", // Padding around the container
           }}
         >
           {["", "", ""].map((_, index) => (
@@ -113,7 +112,7 @@ export const CardList: React.FC<dateProps> = ({
           flexWrap: "wrap",
           gap: "16px", // Spacing between cards
           paddingTop: "20px",
-          paddingBottom: "15px",
+          paddingBottom: "15px"
         }}
       >
         {songs?.map((song, index) => (
