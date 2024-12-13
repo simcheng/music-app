@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdaptgiterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 // taking props from parent
@@ -44,6 +44,12 @@ export const Navbar: React.FC<dateProps> = ({
 
   const decrementDate = () => {
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
+  };
+
+  const handleDateChange = (newDate: any) => {
+    if (newDate && newDate.toDate() <= currDate)
+      setSelectedDate(newDate.toDate());
+    setDatePickerOpen(false);
   };
 
   const CustomArrowIcon: React.FC<{ direction: "left" | "right" }> = ({
@@ -176,12 +182,10 @@ export const Navbar: React.FC<dateProps> = ({
       <Dialog open={isDatePickerOpen} onClose={() => setDatePickerOpen(false)}>
         <DialogTitle>Select a Date</DialogTitle>
         <DialogContent>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               value={selectedDate}
-              onChange={(newDate) => {
-                if (newDate && newDate <= currDate) setSelectedDate(newDate);
-              }}
+              onChange={handleDateChange}
               slots={{
                 textField: (params) => <TextField {...params} fullWidth />,
               }}
