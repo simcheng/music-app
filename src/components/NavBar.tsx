@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   AppBar,
   Toolbar,
@@ -6,19 +6,9 @@ import {
   Box,
   IconButton,
   SvgIcon,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
-  DialogActions,
-  Button,
 } from "@mui/material";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-// taking props from parent
 interface dateProps {
   selectedDate: Date;
   setSelectedDate: (selectedDate: Date) => void;
@@ -28,44 +18,35 @@ export const Navbar: React.FC<dateProps> = ({
   selectedDate,
   setSelectedDate,
 }) => {
-  const [isDatePickerOpen, setDatePickerOpen] = useState(false);
-
   const currDate = new Date();
   const incrementDate = () => {
     let tomorrow = new Date(selectedDate);
-    // caps date at today
     tomorrow.setDate(tomorrow.getDate() + 1);
-    if (!(tomorrow > currDate)) {
+    // caps the date at the current UTC date
+    if (!(tomorrow > currDate))
       setSelectedDate(
         new Date(selectedDate.setDate(selectedDate.getDate() + 1))
       );
-    }
   };
-
   const decrementDate = () => {
     setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
   };
 
-  const handleDateChange = (newDate: any) => {
-    if (newDate && newDate.toDate() <= currDate)
-      setSelectedDate(newDate.toDate());
-    setDatePickerOpen(false);
-  };
-
+  // custom arrows (ai)
   const CustomArrowIcon: React.FC<{ direction: "left" | "right" }> = ({
     direction,
   }) => {
     return (
       <SvgIcon
         sx={{
-          fontSize: "2rem",
-          color: "#ffffff",
+          fontSize: "2rem", // Adjust the icon size
+          color: "#ffffff", // White color for the icons for contrast
           "&:hover": {
-            color: "#1565c0",
-            transform: "scale(1.2)",
-            cursor: "pointer",
+            color: "#1565c0", // Hover color for interactivity
+            transform: "scale(1.2)", // Slightly enlarge the icon on hover
+            cursor: "pointer", // Add pointer cursor to indicate it's interactive
           },
-          transition: "transform 0.2s, color 0.2s",
+          transition: "transform 0.2s, color 0.2s", // Smooth transition for hover effect
         }}
       >
         {direction === "left" ? (
@@ -77,6 +58,7 @@ export const Navbar: React.FC<dateProps> = ({
     );
   };
 
+  // string form of date
   const formattedDate = selectedDate.toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
@@ -110,7 +92,7 @@ export const Navbar: React.FC<dateProps> = ({
                 letterSpacing: -1,
                 background: "linear-gradient(90deg, #1565c0, #003c80)",
                 backgroundSize: "400% 400%",
-                animation: "gradientAnimation 3s ease infinite",
+                animation: "gradientAnimation 5s ease infinite",
                 backgroundClip: "text",
                 color: "transparent",
                 display: "flex",
@@ -119,7 +101,7 @@ export const Navbar: React.FC<dateProps> = ({
                 fontFamily: "Helvetica",
                 fontSize: { xs: "1.5rem", sm: "2rem" },
                 textAlign: { xs: "center", sm: "left" },
-                marginLeft: { xs: "0", sm: "20px" },
+                marginLeft: { xs: "0", sm: "10px" }, // Align the text to the left with some margin
               }}
             >
               Shuffley
@@ -149,17 +131,13 @@ export const Navbar: React.FC<dateProps> = ({
             <Typography
               variant="subtitle1"
               sx={{
-                fontWeight: "medium",
+                fontWeight: "bold",
                 fontSize: { xs: "1rem", sm: "1.2rem" },
                 color: "#ffffff",
                 textAlign: "center",
                 minWidth: "250px", // Ensure static width to prevent movement
                 cursor: "pointer",
-                "&:hover": {
-                  color: "#1976d2",
-                },
               }}
-              onClick={() => setDatePickerOpen(true)}
             >
               {formattedDate}
             </Typography>
@@ -178,24 +156,6 @@ export const Navbar: React.FC<dateProps> = ({
           </Box>
         </Toolbar>
       </AppBar>
-
-      <Dialog open={isDatePickerOpen} onClose={() => setDatePickerOpen(false)}>
-        <DialogTitle>Select a Date</DialogTitle>
-        <DialogContent>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              value={selectedDate}
-              onChange={handleDateChange}
-              slots={{
-                textField: (params) => <TextField {...params} fullWidth />,
-              }}
-            />
-          </LocalizationProvider>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDatePickerOpen(false)}>Cancel</Button>
-        </DialogActions>
-      </Dialog>
     </Box>
   );
 };
